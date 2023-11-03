@@ -5,8 +5,7 @@ from pathlib import Path
 
 
 def main(args):
-    package_folder = Path(__file__).resolve().parents[1]
-    doc_folder = package_folder / 'docs'
+    doc_folder = Path(__file__).resolve().parent
 
     print('Build documentation using sphinx')
     try:
