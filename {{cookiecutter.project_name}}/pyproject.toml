@@ -1,39 +1,102 @@
+##  PROJECT  ##
 [build-system]
-requires = ["setuptools", "setuptools-scm", "versioneer[toml]"]
-build-backend = "setuptools.build_meta"
+requires = ['setuptools', 'setuptools-scm', 'versioneer[toml]']
+build-backend = 'setuptools.build_meta'
 
 [project]
-name = "{{cookiecutter.package_name}}"
+name = '{{cookiecutter.package_name}}'
 authors = [
-    { name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" },
+    { name = '{{cookiecutter.author}}', email = '{{cookiecutter.email}}' },
 ]
-description = "My package description"
-readme = { file = "README.md", content-type = "text/markdown" }
+description = 'My package description'
+readme = { file = 'README.md', content-type = 'text/markdown' }
 
-requires-python = ">={{cookiecutter.minimal_python_version}}"
+requires-python = '>={{cookiecutter.minimal_python_version}}'
 keywords = []
-license = { text = "BSD-3-Clause" }
+license = { text = 'BSD-3-Clause' }
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "Programming Language :: Python :: 3",
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Developers',
+    'Programming Language :: Python :: 3',
 ]
 dependencies = []
-dynamic = ["version"]
+dynamic = ['version']
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ['pytest']
 
 [project.scripts]
-{{cookiecutter.package_name}} = "{{cookiecutter.package_name}}.__main__:main"
+'{{cookiecutter.package_name}}' = '{{cookiecutter.package_name}}.__main__:main'
 
 [tool.setuptools.package-data]
-"{{cookiecutter.package_name}}.data" = ["*.*"]
+'{{cookiecutter.package_name}}.data' = ['*.*']
 
-[tool.versioneer]
-VCS = "git"
-style = "pep440"
-versionfile_source = "src/{{cookiecutter.package_name}}/_version.py"
-versionfile_build = "{{cookiecutter.package_name}}/_version.py"
-tag_prefix = ""
-parentdir_prefix = "{{cookiecutter.package_name}}-"
+##  RUFF  ##
+[tool.ruff]
+select = [
+    'ALL', # all for now
+    # 'F',   # pyflakes
+    # 'E',   # pycodestyle
+    # 'W',   # pycodestyle
+    # 'C90', # mccabe
+    # 'I',   # isort
+    # 'N',   # pep8-naming
+    # 'D',   # pydocstyle
+    # 'A',   # flake8-builtins
+    # 'B',   # flake8-bugbear
+    # 'Q0',  # flake8-quotes
+    # 'C4',  # flake8-comprehensions
+]
+
+extend-select = []
+
+ignore = [
+    'E266', # too many leading ‘#’ for block comment
+    'E501', # line length violations
+    'E731', # usage of lambda expressions
+]
+
+unfixable = [
+    'B',    # Avoid trying to fix flake8-bugbear (B) violations.
+    'F401', # Avoid fixing unused imports during development
+]
+
+extend-exclude = [
+    '.git',          # No need to traverse our git directory
+    '__pycache__',   # There's no value in checking cache directories
+    'versioneer.py', # Is too complex but should not cause failing tests
+    '**/*_depr',     # Ignore deprecated dirs
+    '*_depr',        # Ignore deprecated files
+]
+
+line-length = 120 # Set max line length
+
+target-version = 'py{ cookiecutter.minimal_python_version_short }}' # Specify our minimal target version
+
+[tool.ruff.mccabe]
+max-complexity = 50 # McCabe complexity threshold, should we test on this?
+
+[tool.ruff.per-file-ignores]
+'__init__.py' = [
+    'E402', # Ignore E402 (import violations) in all `__init__.py` files.
+]
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = 'double'
+inline-quotes = 'single'
+multiline-quotes = 'single'
+
+[tool.ruff.pydocstyle]
+convention = 'google' # Specify docstring convention for pydocstyle
+
+[tool.ruff.lint.isort]
+known-local-folder = ['{{cookiecutter.package_name}}']
+force-wrap-aliases = true
+
+##  PYTEST  ##
+[tool.pytest.ini_options]
+minversion = '6.0'
+addopts = '-ra'
+log_cli = true
+log_cli_level = 'INFO'
+testpaths = ['tests']
