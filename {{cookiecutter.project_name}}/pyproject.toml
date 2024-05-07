@@ -8,7 +8,7 @@ name = '{{cookiecutter.package_name}}'
 authors = [
     { name = '{{cookiecutter.author}}', email = '{{cookiecutter.email}}' },
 ]
-description = 'My package description'
+description = '{{ cookiecutter.short_description }}'
 readme = { file = 'README.md', content-type = 'text/markdown' }
 
 requires-python = '>={{cookiecutter.minimal_python_version}}'
