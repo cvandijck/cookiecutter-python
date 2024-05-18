@@ -1,0 +1,70 @@
+trigger: none
+
+jobs:
+- job: LinuxBuild
+  displayName: 'Linux Build'
+  timeoutInMinutes: 10
+  pool:
+    vmImage: 'ubuntu-latest'
+  strategy:
+    matrix:
+      PythonVersion{{ cookiecutter._minimal_python_version_short }}:
+          python.version: "{{ cookiecutter.minimal_python_version }}"
+  steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python $(python.version)'
+      inputs:
+        versionSpec: '$(python.version)'
+
+    - task: Bash@3
+      displayName: 'Create virtual environment'
+      inputs:
+        targetType: 'inline'
+        script: |
+          make create-env
+    
+    - task: Bash@3
+      displayName: 'Install Requirements'
+      inputs:
+        targetType: 'inline'
+        script: |
+          make install-requirements
+
+    - task: Bash@3
+      displayName: 'Run tests'
+      inputs:
+        targetType: 'inline'
+        script: |
+          make test
+
+    - task: PublishTestResults@2
+      displayName: 'Publish test results'
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '_build/test/test-results.xml'
+        testRunTitle: 'Publish test results for Python $(python.version)'
+
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '_build/test/coverage.xml'
+        reportDirectory: 'test_results/htmlcov'
+
+    - task: Bash@3
+      displayName: 'Build python packages'
+      inputs:
+        targetType: 'inline'
+        script: |
+          make build-wheels
+
+    - task: CopyFiles@2
+      displayName: 'Copy wheels to staging directory'
+      inputs:
+        contents: '_build/wheel/**'
+        targetFolder: $(Build.ArtifactStagingDirectory)
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish build artifacts'
+      inputs:
+        pathToPublish: $(Build.ArtifactStagingDirectory)
+        artifactName: artifacts-packages

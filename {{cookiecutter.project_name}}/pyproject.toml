@@ -1,6 +1,6 @@
 ##  PROJECT  ##
 [build-system]
-requires = ['setuptools', 'setuptools-scm', 'versioneer[toml]']
+requires = ['setuptools', 'setuptools-scm']
 build-backend = 'setuptools.build_meta'
 
 [project]
@@ -23,7 +23,7 @@ dependencies = []
 dynamic = ['version']
 
 [project.optional-dependencies]
-dev = ['pytest']
+dev = ['build', 'pytest', 'pytest-cov', 'pre-commit']
 
 [project.scripts]
 '{{cookiecutter.package_name}}' = '{{cookiecutter.package_name}}.__main__:main'
@@ -31,21 +31,23 @@ dev = ['pytest']
 [tool.setuptools.package-data]
 '{{cookiecutter.package_name}}.data' = ['*.*']
 
+[tool.setuptools.dynamic]
+version = {attr = "{{cookiecutter.package_name}}.__version__"}
+
 ##  RUFF  ##
 [tool.ruff]
 select = [
-    'ALL', # all for now
-    # 'F',   # pyflakes
-    # 'E',   # pycodestyle
-    # 'W',   # pycodestyle
-    # 'C90', # mccabe
-    # 'I',   # isort
-    # 'N',   # pep8-naming
-    # 'D',   # pydocstyle
-    # 'A',   # flake8-builtins
-    # 'B',   # flake8-bugbear
-    # 'Q0',  # flake8-quotes
-    # 'C4',  # flake8-comprehensions
+    'F',   # pyflakes
+    'E',   # pycodestyle
+    'W',   # pycodestyle
+    'C90', # mccabe
+    'I',   # isort
+    'N',   # pep8-naming
+    'D',   # pydocstyle
+    'A',   # flake8-builtins
+    'B',   # flake8-bugbear
+    'Q0',  # flake8-quotes
+    'C4',  # flake8-comprehensions
 ]
 
 extend-select = []
@@ -64,14 +66,13 @@ unfixable = [
 extend-exclude = [
     '.git',          # No need to traverse our git directory
     '__pycache__',   # There's no value in checking cache directories
-    'versioneer.py', # Is too complex but should not cause failing tests
     '**/*_depr',     # Ignore deprecated dirs
     '*_depr',        # Ignore deprecated files
 ]
 
 line-length = 120 # Set max line length
 
-target-version = 'py{{ cookiecutter.minimal_python_version_short }}' # Specify our minimal target version
+target-version = 'py{{ cookiecutter._minimal_python_version_short }}' # Specify our minimal target version
 
 [tool.ruff.mccabe]
 max-complexity = 50 # McCabe complexity threshold, should we test on this?
@@ -84,7 +85,7 @@ max-complexity = 50 # McCabe complexity threshold, should we test on this?
 [tool.ruff.flake8-quotes]
 docstring-quotes = 'double'
 inline-quotes = 'single'
-multiline-quotes = 'single'
+multiline-quotes = 'double'
 
 [tool.ruff.pydocstyle]
 convention = 'google' # Specify docstring convention for pydocstyle
@@ -93,10 +94,15 @@ convention = 'google' # Specify docstring convention for pydocstyle
 known-local-folder = ['{{cookiecutter.package_name}}']
 force-wrap-aliases = true
 
+[tool.ruff.format]
+quote-style = 'single'
+indent-style = 'space'
+docstring-code-format = false
+
 ##  PYTEST  ##
 [tool.pytest.ini_options]
 minversion = '6.0'
-addopts = '-ra'
+addopts = ['-ra', '-vv']
 log_cli = true
 log_cli_level = 'INFO'
 testpaths = ['tests']

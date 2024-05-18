@@ -1,0 +1,8 @@
+# development requirements
+pre-commit == 3.3.*
+pytest == 7.3.*
+pytest-cov == 4.1.*
+build == 1.2.*
+
+# install app requirements
+-r ./app/requirements.txt

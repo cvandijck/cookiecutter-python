@@ -18,18 +18,20 @@ EXCLUDED_MODULES = ['jedi', 'tcl', 'FixTk', 'tk', '_tkinter', 'tkinter', 'Tkinte
 
 
 def main(args):
-    app_folder = Path(__file__).resolve().parent
+    pyinstaller_folder = Path(__file__).resolve().parent
+    app_folder = pyinstaller_folder.parent
+    root_folder = app_folder.parent
 
-    dist_folder = app_folder / 'dist'
-    build_folder = app_folder / 'build'
+    dist_folder = pyinstaller_folder / '_dist'
+    build_folder = pyinstaller_folder / '_build'
 
     print('Removing dist and build folders')
     shutil.rmtree(dist_folder, ignore_errors=True)
     shutil.rmtree(build_folder, ignore_errors=True)
 
     print('Build package')
-    process = subprocess.run(['python', 'setup.py', 'build', f'--build-lib={build_folder}'],
-                             cwd=app_folder.parent, text=True, check=True)
+    process = subprocess.run(['python', '-m', 'build', f'--build-lib={build_folder}'],
+                             cwd=root_folder, text=True, check=True)
 
     print('Build app')
     pyinstaller_options = [

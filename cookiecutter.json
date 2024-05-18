@@ -1,9 +1,10 @@
 {
 	"project_name": "MyProject",
 	"package_name": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+	"_kebab_name": "{{ cookiecutter.package_name.replace('_', '-') }}",
 	"package_release": "2023",
 	"minimal_python_version": "3.9",
-	"minimal_python_version_short": "{{ cookiecutter.minimal_python_version.replace('.', '') }}",
+	"_minimal_python_version_short": "{{ cookiecutter.minimal_python_version.replace('.', '') }}",
 	"author": "Your Name",
 	"email": "you@example.com",
 	"short_description": "This project is for...",
