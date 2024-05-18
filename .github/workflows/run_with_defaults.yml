@@ -17,7 +17,13 @@ jobs:
           # path to what you checked out
           template: ./
           outputDir: ./_generated
-          cookiecutterValues: '{}'
+          cookiecutterValues: '{
+            "project_name": "MyProject"
+          }'
       - name: List files in the repository
         run: |
             tree ./_generated
+      - name: Make install new package
+        run: |
+            cd ./_generated/MyProject
+            make install

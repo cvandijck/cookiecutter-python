@@ -1,8 +1,9 @@
 # development requirements
-pre-commit == 3.3.*
-pytest == 7.3.*
-pytest-cov == 4.1.*
-build == 1.2.*
+pre-commit == 3.*
+pytest == 7.*
+pytest-cov == 5.*
+build == 1.*
 
-# install app requirements
--r ./app/requirements.txt
+-e . --config-settings editable_mode=compat # avoid issues with static checkers and PEP660
+
+# pinned versions of app dependencies

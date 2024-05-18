@@ -1,5 +1,0 @@
-# installation of local namespace packages
-# config-settings to avoid issues with static checkers and PEP660
--e file:src/{{cookiecutter.package_name}} --config-settings editable_mode=compat
-
-# pinned versions of app dependencies 

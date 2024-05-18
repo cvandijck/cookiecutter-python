@@ -32,7 +32,7 @@ dev = ['build', 'pytest', 'pytest-cov', 'pre-commit']
 '{{cookiecutter.package_name}}.data' = ['*.*']
 
 [tool.setuptools.dynamic]
-version = {attr = "{{cookiecutter.package_name}}.__version__"}
+version = { attr = "{{cookiecutter.package_name}}.__version__" }
 
 ##  RUFF  ##
 [tool.ruff]
@@ -64,10 +64,10 @@ unfixable = [
 ]
 
 extend-exclude = [
-    '.git',          # No need to traverse our git directory
-    '__pycache__',   # There's no value in checking cache directories
-    '**/*_depr',     # Ignore deprecated dirs
-    '*_depr',        # Ignore deprecated files
+    '.git',        # No need to traverse our git directory
+    '__pycache__', # There's no value in checking cache directories
+    '**/*_depr',   # Ignore deprecated dirs
+    '*_depr',      # Ignore deprecated files
 ]
 
 line-length = 120 # Set max line length
