@@ -2,7 +2,7 @@
 	"project_name": "MyProject",
 	"package_name": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
 	"_kebab_name": "{{ cookiecutter.package_name.replace('_', '-') }}",
-	"package_release": "{% now 'local', %Y' %}",
+	"package_release": "{% now 'local', '%Y' %}",
 	"minimal_python_version": "3.11",
 	"__minimal_python_version_short": "{{ cookiecutter.minimal_python_version.replace('.', '') }}",
 	"author": "Your Name",
