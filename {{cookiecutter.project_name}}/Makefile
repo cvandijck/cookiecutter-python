@@ -25,15 +25,15 @@ endif
 RUN_MODULE = $(PYTHON) -m
 PIP = $(RUN_MODULE) pip
 
-install: create-env install-requirements install-pre-commit
+setup: create-env install install-pre-commit
 
 create-env:
 	$(info MAKE: Initializing environment in .venv ...)
 	$(CREATE_ENV_CMD)
 	$(PIP) install --upgrade "pip>=24" wheel
 
-install-requirements:
-	$(info MAKE: Installing development requirements ...)
+install:
+	$(info MAKE: Installing project ...)
 	$(PIP) install -r requirements.txt
 
 test:
@@ -49,7 +49,7 @@ pre-commit:
 	$(RUN_MODULE) pre_commit run --all-files
 
 build-wheels:
-	$(PYTHON) -m build src/{{ cookiecutter.package_name }} --outdir $(BUILD_WHEEL_DIR)
+	$(PYTHON) -m build . --outdir $(BUILD_WHEEL_DIR)
 
 build-docker:
 	docker build -t $(DOCKER_TAG) .
