@@ -30,4 +30,4 @@ jobs:
       - name: Make install new package
         run: |
             cd ./_generated/MyProject
-            make install
+            python3.11 -m venv .venv
