@@ -15,6 +15,10 @@ jobs:
       - uses: actions/setup-python@v5.1.0
         with:
           python-version: 3.11
+      - name: Install dependencies
+        run: |
+            pip install -U pip
+            pip install cookiecutter
       # - name: Run cookiecutter
       #   uses: andrewthetechie/gha-cookiecutter@main
       #   with:
@@ -26,12 +30,11 @@ jobs:
       #     }'
       - name: Run cookiecutter
         run: |
-            pip install cookiecutter
-            cookiecutter . --no-input project_name="MyProject" minimal_python_version="3.11" -o ./_generated 
+            cookiecutter . --no-input project_name="MyProject" minimal_python_version="3.11" -o ./_generated --verbose
       - name: List files in the repository
         run: |
             tree ./_generated
       - name: Make install new package
         run: |
-            # cd ./_generated/MyProject
-            python3.11 -m venv ./venv
+            cd ./_generated/MyProject
+            make install
