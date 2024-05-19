@@ -7,22 +7,22 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  default_arguments:
+    name: Run cookiecutter with defaults 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v5.1.0
         with:
           python-version: 3.11
-      - name: Run cookiecutter with defaults
+      - name: Run cookiecutter
         uses: andrewthetechie/gha-cookiecutter@main
         with:
-          # path to what you checked out
           template: ./
           outputDir: ./_generated
           cookiecutterValues: '{
             "project_name": "MyProject",
-            "minimal_python_version": "3.11",
+            "minimal_python_version": "3.11"
           }'
       - name: List files in the repository
         run: |
