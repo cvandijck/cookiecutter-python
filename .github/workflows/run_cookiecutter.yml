@@ -30,6 +30,10 @@ jobs:
       - name: List files in the repository
         run: |
             tree $PROJECT_DIR
+      - name: Create new environment
+        run: |
+            cd $PROJECT_DIR/$PROJECT_NAME
+            make create_env
       - name: Install new package
         run: |
             cd $PROJECT_DIR/$PROJECT_NAME
