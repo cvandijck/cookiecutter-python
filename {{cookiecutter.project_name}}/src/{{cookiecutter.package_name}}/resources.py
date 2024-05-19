@@ -1,14 +1,13 @@
 import os
 import sys
-from typing import Optional, Union
 from pathlib import Path
-
+from typing import Optional, Union
 
 PathType = Union[str, bytes, Path, os.PathLike]
 
 
 def get_resource_path(relative_path: Optional[PathType] = None) -> Path:
-    """ Get absolute path to resource, works for python packages and for PyInstaller executables """
+    """Get absolute path to resource, works for python packages and for PyInstaller executables."""
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = Path(sys._MEIPASS)
@@ -19,4 +18,3 @@ def get_resource_path(relative_path: Optional[PathType] = None) -> Path:
         return (base_path / 'data').resolve()
     else:
         return (base_path / 'data' / relative_path).resolve()
-

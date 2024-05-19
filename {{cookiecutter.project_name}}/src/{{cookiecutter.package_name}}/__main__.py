@@ -9,11 +9,11 @@ from {{cookiecutter.package_name}}.exceptions import UnknownError
 
 
 def parse_console_arguments():
-    """ Parses commandline arguments provided to the console script """
-
+    """Parses commandline arguments provided to the console script."""
     # Using argparse as a default main function. Change arguments or remove all together.
-    parser = argparse.ArgumentParser(prog='{{cookiecutter.package_name}} {}'.format(__version__),
-                                     description='{{cookiecutter.short_description}}')
+    parser = argparse.ArgumentParser(
+        prog='{{cookiecutter.package_name}} {}'.format(__version__), description='{{cookiecutter.short_description}}'
+    )
     parser.add_argument('input_file', help='Input file to run {{cookiecutter.package_name}}')
     parser.add_argument('output_file', help='Output of {{cookiecutter.package_name}} will be written here')
     parser.add_argument('--log_file', '-l', help='Optional custom log file name', default='logging.log')
@@ -29,7 +29,7 @@ def parse_console_arguments():
 
 
 def process(input_file: PathType, output_file: PathType, log_file: PathType, status_file: PathType):
-    """ Function to call the application's functionality
+    """Function to call the application's functionality.
 
     Args:
         input_file: path to input file
