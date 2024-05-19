@@ -6,7 +6,7 @@ endif
 
 PYTHON_VERSION = {{ cookiecutter.minimal_python_version }}
 VENV_NAME = .venv
-DOCKER_TAG = {{ cookiecutter._kebab_name }}
+DOCKER_TAG = {{ cookiecutter.__project_name_hyphenated }}
 
 BUILD_DIR = ./_build
 BUILD_WHEEL_DIR = $(BUILD_DIR)/wheel
@@ -25,15 +25,15 @@ endif
 RUN_MODULE = $(PYTHON) -m
 PIP = $(RUN_MODULE) pip
 
-install: create-env install-requirements install-pre-commit 
+install: create-env install-project install-pre-commit
 
 create-env:
 	$(info MAKE: Initializing environment in .venv ...)
 	$(CREATE_ENV_CMD)
 	$(PIP) install --upgrade "pip>=24" wheel
 
-install-requirements:
-	$(info MAKE: Installing development requirements ...)
+install-project:
+	$(info MAKE: Installing project ...)
 	$(PIP) install -r requirements.txt
 
 test:
@@ -49,7 +49,7 @@ pre-commit:
 	$(RUN_MODULE) pre_commit run --all-files
 
 build-wheels:
-	$(PYTHON) -m build src/{{ cookiecutter.package_name }} --outdir $(BUILD_WHEEL_DIR)
+	$(PYTHON) -m build . --outdir $(BUILD_WHEEL_DIR)
 
 build-docker:
 	docker build -t $(DOCKER_TAG) .

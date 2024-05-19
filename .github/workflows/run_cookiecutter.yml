@@ -1,0 +1,48 @@
+name: Run cookiecutter
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PYTHON_VERSION: 3.11
+  PROJECT_DIR: ./generated
+  PROJECT_NAME: MyProject
+
+jobs:
+  default_arguments:
+    name: Run cookiecutter with defaults
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+      - name: Install dependencies
+        run: |
+            pip install -U pip
+            pip install cookiecutter
+      - name: Run cookiecutter
+        run: |
+            cookiecutter . --no-input project_name="$PROJECT_NAME" minimal_python_version="$PYTHON_VERSION" -o $PROJECT_DIR --verbose
+      - name: List files in the repository
+        run: |
+            tree $PROJECT_DIR
+      - name: Create new environment
+        run: |
+            cd $PROJECT_DIR/$PROJECT_NAME
+            make create-env
+      - name: Install new package
+        run: |
+            cd $PROJECT_DIR/$PROJECT_NAME
+            make install-project
+      # - name: Test new package
+      #   run: |
+      #       cd $PROJECT_DIR/$PROJECT_NAME
+      #       make test
+      - name: Build new package
+        run: |
+            cd $PROJECT_DIR/$PROJECT_NAME
+            make build-wheels

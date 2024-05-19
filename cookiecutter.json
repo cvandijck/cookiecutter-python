@@ -1,10 +1,10 @@
 {
 	"project_name": "MyProject",
 	"package_name": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-	"_kebab_name": "{{ cookiecutter.package_name.replace('_', '-') }}",
-	"package_release": "2024",
+	"__project_name_hyphenated": "{{ cookiecutter.package_name.replace('_', '-') }}",
+	"package_release": "{% now 'local', '%Y' %}",
 	"minimal_python_version": "3.11",
-	"_minimal_python_version_short": "{{ cookiecutter.minimal_python_version.replace('.', '') }}",
+	"__minimal_python_version_short": "{{ cookiecutter.minimal_python_version.replace('.', '') }}",
 	"author": "Your Name",
 	"email": "you@example.com",
 	"short_description": "This project is for...",
