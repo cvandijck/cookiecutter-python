@@ -29,5 +29,5 @@ jobs:
             tree ./_generated
       - name: Make install new package
         run: |
-            cd ./_generated/MyProject
+            # cd ./_generated/MyProject
             python3.11 -m venv ./venv
