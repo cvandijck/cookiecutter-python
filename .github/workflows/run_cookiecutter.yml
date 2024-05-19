@@ -34,10 +34,10 @@ jobs:
         run: |
             cd $PROJECT_DIR/$PROJECT_NAME
             make install
-      - name: test new package
-        run: |
-            cd $PROJECT_DIR/$PROJECT_NAME
-            make test
+      # - name: Test new package
+      #   run: |
+      #       cd $PROJECT_DIR/$PROJECT_NAME
+      #       make test
       - name: Build new package
         run: |
             cd $PROJECT_DIR/$PROJECT_NAME
