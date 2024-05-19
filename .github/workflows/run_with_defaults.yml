@@ -1,4 +1,4 @@
-name: Run with defaults
+name: Run cookiecutter
 
 on:
   push:
