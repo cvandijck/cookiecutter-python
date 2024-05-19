@@ -33,11 +33,11 @@ jobs:
       - name: Create new environment
         run: |
             cd $PROJECT_DIR/$PROJECT_NAME
-            make create_env
+            make create-env
       - name: Install new package
         run: |
             cd $PROJECT_DIR/$PROJECT_NAME
-            make install
+            make install-project
       # - name: Test new package
       #   run: |
       #       cd $PROJECT_DIR/$PROJECT_NAME

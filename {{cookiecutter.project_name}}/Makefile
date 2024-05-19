@@ -25,14 +25,14 @@ endif
 RUN_MODULE = $(PYTHON) -m
 PIP = $(RUN_MODULE) pip
 
-setup: create-env install install-pre-commit
+install: create-env install-project install-pre-commit
 
 create-env:
 	$(info MAKE: Initializing environment in .venv ...)
 	$(CREATE_ENV_CMD)
 	$(PIP) install --upgrade "pip>=24" wheel
 
-install:
+install-project:
 	$(info MAKE: Installing project ...)
 	$(PIP) install -r requirements.txt
 
