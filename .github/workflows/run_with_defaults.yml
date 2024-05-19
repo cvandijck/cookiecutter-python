@@ -6,35 +6,39 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  PYTHON_VERSION: 3.11
+  PROJECT_DIR: ./generated
+  PROJECT_NAME: MyProject
+
 jobs:
   default_arguments:
-    name: Run cookiecutter with defaults 
+    name: Run cookiecutter with defaults
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v5.1.0
         with:
-          python-version: 3.11
+          python-version: $PYTHON_VERSION
       - name: Install dependencies
         run: |
             pip install -U pip
             pip install cookiecutter
-      # - name: Run cookiecutter
-      #   uses: andrewthetechie/gha-cookiecutter@main
-      #   with:
-      #     template: ./
-      #     outputDir: ./_generated
-      #     cookiecutterValues: '{
-      #       "project_name": "MyProject",
-      #       "minimal_python_version": "3.11"
-      #     }'
       - name: Run cookiecutter
         run: |
-            cookiecutter . --no-input project_name="MyProject" minimal_python_version="3.11" -o ./_generated --verbose
+            cookiecutter . --no-input project_name="$PROJECT_NAME" minimal_python_version="$PYTHON_VERSION" -o $PROJECT_DIR --verbose
       - name: List files in the repository
         run: |
-            tree ./_generated
-      - name: Make install new package
+            tree $PROJECT_DIR
+      - name: Install new package
         run: |
-            cd ./_generated/MyProject
+            cd $PROJECT_DIR/$PROJECT_NAME
             make install
+      - name: test new package
+        run: |
+            cd $PROJECT_DIR/$PROJECT_NAME
+            make test
+      - name: Build new package
+        run: |
+            cd $PROJECT_DIR/$PROJECT_NAME
+            make build-wheels
