@@ -6,7 +6,7 @@ endif
 
 PYTHON_VERSION = {{ cookiecutter.minimal_python_version }}
 VENV_NAME = .venv
-DOCKER_TAG = {{ cookiecutter._kebab_name }}
+DOCKER_TAG = {{ cookiecutter.__project_name_hyphenated }}
 
 BUILD_DIR = ./_build
 BUILD_WHEEL_DIR = $(BUILD_DIR)/wheel
@@ -25,7 +25,7 @@ endif
 RUN_MODULE = $(PYTHON) -m
 PIP = $(RUN_MODULE) pip
 
-install: create-env install-requirements install-pre-commit 
+install: create-env install-requirements install-pre-commit
 
 create-env:
 	$(info MAKE: Initializing environment in .venv ...)
