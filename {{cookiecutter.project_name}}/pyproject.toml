@@ -91,13 +91,13 @@ multiline-quotes = 'double'
 known-local-folder = ['{{cookiecutter.package_name}}']
 force-wrap-aliases = true
 
+[tool.ruff.lint.pydocstyle]
+convention = 'google' # Specify docstring convention for pydocstyle
+
 [tool.ruff.format]
 quote-style = 'single'
 indent-style = 'space'
 docstring-code-format = false
-
-[tool.ruff.pydocstyle]
-convention = 'google' # Specify docstring convention for pydocstyle
 
 ##  PYTEST  ##
 [tool.pytest.ini_options]
