@@ -29,7 +29,7 @@ icon_path = str(doc_path / 'images' / 'icon.ico')
 
 project = '{{cookiecutter.project_name}}'
 author = '{{cookiecutter.author}}'
-copyright = '{{cookiecutter.package_release}} - {}, {}'.format(datetime.date.today().year, author)
+copyright_str = '{{cookiecutter.package_release}} - {}, {}'.format(datetime.date.today().year, author)
 
 # The short X.Y version.
 version = full_version.split('+')[0]
@@ -137,7 +137,7 @@ html_theme_options = {
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,
-    'titles_only': True
+    'titles_only': True,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
