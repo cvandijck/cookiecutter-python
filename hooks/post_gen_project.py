@@ -8,11 +8,9 @@ INITIALIZE_REPO = {{cookiecutter.initialize_repo}}
 DEFAULT_BRANCH_NAME = 'main'
 REPO_URL = '{{cookiecutter.url}}.git'
 
-LOGGER.warning(INITIALIZE_REPO)
-
 
 def _execute_command(command: list[str]):
-    LOGGER.warning(' '.join(command))
+    LOGGER.debug(' '.join(command))
     subprocess.run(command, capture_output=True, check=True)
 
 
