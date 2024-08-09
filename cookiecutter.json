@@ -8,5 +8,6 @@
 	"author": "Your Name",
 	"email": "you@example.com",
 	"short_description": "This project is for...",
-	"url": "https://github.com/"
+	"url": "https://github.com/...",
+	"initialize_repo": false
 }

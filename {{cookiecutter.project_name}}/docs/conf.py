@@ -10,13 +10,14 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
+import datetime
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
+from pathlib import Path
 
 import sphinx_rtd_theme
-import datetime
-from pathlib import Path
+
+sys.path.insert(0, os.path.abspath('..'))
 import {{cookiecutter.package_name}}
 
 full_version = {{cookiecutter.package_name}}.__version__
@@ -69,18 +70,18 @@ source_suffix = {
 }
 
 myst_enable_extensions = [
-    "amsmath",
-    "colon_fence",
-    "deflist",
-    "dollarmath",
-    "fieldlist",
-    "html_admonition",
-    "html_image",
-    "replacements",
-    "smartquotes",
-    "strikethrough",
-    "substitution",
-    "tasklist",
+    'amsmath',
+    'colon_fence',
+    'deflist',
+    'dollarmath',
+    'fieldlist',
+    'html_admonition',
+    'html_image',
+    'replacements',
+    'smartquotes',
+    'strikethrough',
+    'substitution',
+    'tasklist',
 ]
 
 # If true, the current module name will be prepended to all description
@@ -103,7 +104,7 @@ todo_include_todos = True
 # Napoleon options
 napoleon_numpy_docstring = False  # Force consistency, leave only Google
 napoleon_use_rtype = False  # More legible
-napoleon_include_init_with_doc = False 
+napoleon_include_init_with_doc = False
 napoleon_preprocess_types = True
 
 # apidoc options
