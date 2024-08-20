@@ -36,7 +36,6 @@ install-project:
 	$(info MAKE: Installing project ...)
 	$(PIP) install -e .[dev] --config-settings editable_mode=compat
 
-
 test:
 	$(info MAKE: Running tests ...)
 	$(PYTHON) -m pytest tests --junitxml=$(BUILD_TEST_DIR)/test-results.xml --cov=src --cov-report=xml:$(BUILD_TEST_DIR)/coverage.xml --cov-report=html:$(BUILD_TEST_DIR)/htmlcov
@@ -56,7 +55,7 @@ build-docker:
 	docker build -t $(DOCKER_TAG) .
 
 run-app:
-	python app/app.py
+	$(PYTHON) app/app.py
 
 run-docker:
 	docker run -p 8501:8501 $(DOCKER_TAG)
