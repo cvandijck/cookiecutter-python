@@ -11,5 +11,5 @@ python -m pip install cookiecutter
 cookiecutter https://github.com/cvandijck/cookiecutter-python
 ```
 
-Cookiecutter will ask information about the project, such as the project and package name. 
-From this information, a complete structure is created for the (imo) ideal python project. 
+Cookiecutter will ask information about the project, such as the project and package name.
+From this information, a complete structure is created for the (imo) ideal python project.
