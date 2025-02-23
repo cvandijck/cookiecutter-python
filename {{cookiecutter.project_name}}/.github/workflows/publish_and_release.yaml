@@ -78,7 +78,7 @@ jobs:
       - uses: mukunku/tag-exists-action@v1.6.0
         id: check-tag
         with:
-          tag: ${{ env.VERSION }}
+          tag: {{ '${{ env.VERSION }}' }}'
 
       - name: Check if tag exists
         run: exit 1
@@ -141,9 +141,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
-          name: Release ${{ env.PACKAGE_VERSION }}
-          tag_name: ${{ env.PACKAGE_VERSION }}
-          body: Releasing ${{ env.PACKAGE_VERSION }} # TODO: Add release notes
+          name: Release {{ '${{ env.PACKAGE_VERSION }}' }}
+          tag_name: {{ '${{ env.PACKAGE_VERSION }}' }}
+          body: Releasing {{ '${{ env.PACKAGE_VERSION }}' }} # TODO: Add release notes
           draft: false
           prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: {{ '${{ secrets.GITHUB_TOKEN }}' }}
