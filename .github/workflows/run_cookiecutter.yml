@@ -20,10 +20,14 @@ jobs:
       - uses: actions/setup-python@v5.1.0
         with:
           python-version: ${{env.PYTHON_VERSION}}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          # Fix to uv version of winget
+          version: "0.5.8"
       - name: Install dependencies
         run: |
-            pip install -U pip
-            pip install cookiecutter
+            uv tool install cookiecutter
       - name: Run cookiecutter
         run: |
             cookiecutter . --no-input project_name="$PROJECT_NAME" minimal_python_version="$PYTHON_VERSION" -o $PROJECT_DIR --verbose
