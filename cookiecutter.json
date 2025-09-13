@@ -9,9 +9,9 @@
 	"email": "christophe.vdijck@gmail.com",
 	"short_description": "This project is for...",
 	"url": "https://github.com/cvandijck/{{ cookiecutter.project_name.lower() }}",
-	"initialize_repo": false,
 	"license": [
 		"BSD-3-Clause",
 		"Restricted (Use by Permission Only)"
 	]
+	"initialize_repo": false,
 }

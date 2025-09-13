@@ -28,10 +28,10 @@ dev = ['build', 'twine', 'pytest', 'pytest-cov', 'pre-commit', 'wheel']
 '{{cookiecutter.package_name}}' = '{{cookiecutter.package_name}}.__main__:main'
 
 [project.urls]
-Homepage = '{{cookiecutter.project_url}}'
-Documentation = '{{cookiecutter.project_url}}#readme'
-Repository = '{{cookiecutter.project_url}}.git'
-Issues = '{{cookiecutter.project_url}}/issues'
+Homepage = '{{cookiecutter.url}}'
+Documentation = '{{cookiecutter.url}}#readme'
+Repository = '{{cookiecutter.url}}.git'
+Issues = '{{cookiecutter.url}}/issues'
 
 [tool.setuptools.package-data]
 '{{cookiecutter.package_name}}.data' = ['*.*']
