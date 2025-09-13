@@ -110,8 +110,8 @@ minversion = '6.0'
 addopts = [
     '-ra',
     '-vv',
-    '--junitxml=_build/test-results.xml',
     # breaks pytest in vscode; added for CI but need to find fix
+    # '--junitxml=_build/test-results.xml',
     # '--cov=src',
     # '--cov-report=xml:_build/coverage.xml',
     # '--cov-report=html:_build/htmlcov',
