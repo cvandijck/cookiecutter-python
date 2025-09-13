@@ -10,7 +10,6 @@ authors = [
 ]
 description = '{{ cookiecutter.short_description }}'
 readme = { file = 'README.md', content-type = 'text/markdown' }
-
 requires-python = '>={{cookiecutter.minimal_python_version}}'
 keywords = []
 license = { text = 'BSD-3-Clause' }
@@ -19,14 +18,20 @@ classifiers = [
     'Intended Audience :: Developers',
     'Programming Language :: Python :: 3',
 ]
-dependencies = []
 dynamic = ['version']
+dependencies = []
 
 [dependency-groups]
 dev = ['build', 'twine', 'pytest', 'pytest-cov', 'pre-commit', 'wheel']
 
 [project.scripts]
 '{{cookiecutter.package_name}}' = '{{cookiecutter.package_name}}.__main__:main'
+
+[project.urls]
+Homepage = '{{cookiecutter.project_url}}'
+Documentation = '{{cookiecutter.project_url}}#readme'
+Repository = '{{cookiecutter.project_url}}.git'
+Issues = '{{cookiecutter.project_url}}/issues'
 
 [tool.setuptools.package-data]
 '{{cookiecutter.package_name}}.data' = ['*.*']
