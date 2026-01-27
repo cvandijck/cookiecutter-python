@@ -22,7 +22,7 @@ dynamic = ['version']
 dependencies = []
 
 [dependency-groups]
-dev = ['build', 'twine', 'pytest', 'pytest-cov', 'pre-commit', 'wheel']
+dev = ['build', 'twine', 'pytest', 'pytest-xdist', 'pytest-cov', 'pre-commit', 'wheel']
 
 [project.scripts]
 '{{cookiecutter.package_name}}' = '{{cookiecutter.package_name}}.__main__:main'
@@ -48,7 +48,7 @@ extend-exclude = [
     '*_depr',      # Ignore deprecated files
 ]
 line-length = 80 # Set max line length
-target-version = 'py39' # Specify our minimal target version
+target-version = 'py{{cookiecutter.minimal_python_version.replace(".", "")}}' # Specify our minimal target version
 
 [tool.ruff.lint]
 select = [
@@ -69,7 +69,6 @@ extend-select = []
 
 ignore = [
     'E266', # too many leading ‘#’ for block comment
-    'E501', # line length violations
     'E731', # usage of lambda expressions
     'D1',   # docstrings
 ]
@@ -107,15 +106,7 @@ docstring-code-format = false
 ##  PYTEST  ##
 [tool.pytest.ini_options]
 minversion = '6.0'
-addopts = [
-    '-ra',
-    '-vv',
-    # breaks pytest in vscode; added for CI but need to find fix
-    # '--junitxml=_build/test-results.xml',
-    # '--cov=src',
-    # '--cov-report=xml:_build/coverage.xml',
-    # '--cov-report=html:_build/htmlcov',
-]
+addopts = ['-ra', '-vv']
 log_cli = true
 log_cli_level = 'INFO'
 testpaths = ['tests']
