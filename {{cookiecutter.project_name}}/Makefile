@@ -33,7 +33,11 @@ create-env:
 
 install-project:
 	$(info MAKE: Installing project ...)
-	$(UV) sync
+	$(UV) sync --refresh
+
+update-deps:
+	$(info MAKE: Updating dependencies ...)
+	$(UV) sync --refresh --upgrade
 
 install-pre-commit:
 	$(info MAKE: Installing pre-commit hooks...)
