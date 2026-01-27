@@ -1,47 +1,57 @@
 import logging
+import re
 import sys
 from pathlib import Path
 from typing import Literal, Optional
 
 DEFAULT_LOGGING_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-
-
-class PackageFilter(logging.Filter):
-    def __init__(self, package_name):
-        super().__init__()
-        self.package_name = package_name
-
-    def filter(self, record):
-        return record.name.startswith(self.package_name)
+PACKAGE_REGEX = re.compile(r'^{{cookiecutter.package_name}}\.')
+MAIN_REGEX = re.compile(r'^__main__$')
 
 
 def configure_logging(
-    level=logging.INFO,
+    level: int = logging.INFO,
     log_format: str = DEFAULT_LOGGING_FORMAT,
     log_file_path: Optional[Path] = None,
     log_file_mode: Literal['w', 'a'] = 'a',
-    exclude_external_logs: bool = False,
+    external_log_level: int = logging.WARNING,
+    only_log_to_file: bool = False,
 ):
-    logger = logging.getLogger()
-    logger.setLevel(logging.NOTSET)  # Let the handlers decide the level
+    root_logger = logging.getLogger()
+    root_logger.setLevel(external_log_level)  # set root logger to external log level
 
     formatter = logging.Formatter(log_format)
+
+    if only_log_to_file and log_file_path is None:
+        raise ValueError('log_file_path must be provided if only_log_to_file is True')
+
+    if not only_log_to_file:
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(formatter)
+        console_handler.setLevel(level)
+        root_logger.addHandler(console_handler)
 
     if log_file_path:
         file_handler = logging.FileHandler(filename=str(log_file_path), mode=log_file_mode)
         file_handler.setFormatter(formatter)
         file_handler.setLevel(level)
-        logger.addHandler(file_handler)
+        root_logger.addHandler(file_handler)
 
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    console_handler.setLevel(level)
-    logger.addHandler(console_handler)
+    # ensure existing loggers have correct levels
+    for logger in get_all_loggers(include_root=False):
+        if PACKAGE_REGEX.match(logger.name) or MAIN_REGEX.match(logger.name):
+            logger.setLevel(level)
+        else:
+            logger.setLevel(external_log_level)
 
-    if exclude_external_logs:
-        package_name = __name__.split('.')[0]
-        package_filter = PackageFilter(package_name)
-        logger.addFilter(package_filter)
+
+def get_all_loggers(include_root: bool = False, name_regex_filter: Optional[re.Pattern] = None) -> list[logging.Logger]:
+    if not name_regex_filter:
+        name_regex_filter = re.compile('.*')
+    loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict if name_regex_filter.match(name)]
+    if include_root:
+        loggers = [logging.getLogger()] + loggers
+    return loggers
 
 
 def convert_logging_level(level: str) -> int:
